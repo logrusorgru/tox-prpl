@@ -819,7 +819,7 @@ static gboolean tox_messenger_loop(gpointer data)
     toxprpl_plugin_data *plugin = purple_connection_get_protocol_data(gc);
     if ((plugin != NULL) && (plugin->tox != NULL))
     {
-        tox_iterate(plugin->tox);
+        tox_iterate(plugin->tox, gc);
     }
     return TRUE;
 }
@@ -1222,18 +1222,18 @@ static void toxprpl_login_after_setup(PurpleAccount *acct,
     {
         toxprpl_save_account(acct, tox);
     }
-    tox_callback_friend_message(tox, on_incoming_message, gc);
-    tox_callback_friend_name(tox, on_nick_change, gc);
-    tox_callback_friend_status(tox, on_status_change, gc);
-    tox_callback_friend_request(tox, on_request, gc);
-    tox_callback_friend_connection_status(tox, on_connectionstatus, gc);
-    tox_callback_friend_typing(tox, on_typing_change, gc);
+    tox_callback_friend_message(tox, on_incoming_message);
+    tox_callback_friend_name(tox, on_nick_change);
+    tox_callback_friend_status(tox, on_status_change);
+    tox_callback_friend_request(tox, on_request);
+    tox_callback_friend_connection_status(tox, on_connectionstatus);
+    tox_callback_friend_typing(tox, on_typing_change);
 
 
-    tox_callback_file_recv(tox, on_file_recv, gc);
-    tox_callback_file_chunk_request(tox, on_file_chunk_request, gc);
-    tox_callback_file_recv_control(tox, on_file_control, gc);
-    tox_callback_file_recv_chunk(tox, on_file_recv_chunk, gc);
+    tox_callback_file_recv(tox, on_file_recv);
+    tox_callback_file_chunk_request(tox, on_file_chunk_request);
+    tox_callback_file_recv_control(tox, on_file_control);
+    tox_callback_file_recv_chunk(tox, on_file_recv_chunk);
 
     purple_debug_info("toxprpl", "initialized tox callbacks\n");
 
